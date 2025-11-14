@@ -1,20 +1,21 @@
-/* ===============================
-   GLOBAL — FULL TRANSPARENCY
-================================ */
-html, body {
+/* === RESET === */
+* {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent !important;
-    overflow: hidden;
-    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
 }
 
-/* Background video wrapper */
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* === BACKGROUND VIDEO === */
 #bg-wrap {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -27,20 +28,18 @@ html, body {
     object-fit: cover;
 }
 
-/* Slight dark overlay for contrast */
 #bg-overlay {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(2px);
-    z-index: -1;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(1px);
+    z-index: 1;
 }
 
-/* ===============================
-   TOP-LEFT MZU LOGO
-================================ */
+/* === MZU LOGO (top-left) === */
 #mzu-brand {
     position: fixed;
     top: 20px;
@@ -49,185 +48,159 @@ html, body {
 }
 
 #mzu-logo {
-    width: 60px;
+    width: 80px;
     height: auto;
-    opacity: 0.9;
-    transition: 0.2s;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
 }
 
-#mzu-logo:hover {
-    transform: scale(1.05);
-    opacity: 1;
-}
-
-/* ===============================
-   FLOATING BUTTON
-================================ */
+/* === CHAT FLOATING BUTTON === */
 #chatbot-button {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
-    padding: 16px;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
-    background: rgba(0,123,255,0.9);
-    color: white;
-    font-size: 20px;
     border: none;
+    background: #007bff;
+    color: white;
+    font-size: 22px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    backdrop-filter: blur(6px);
     transition: 0.25s;
 }
 
 #chatbot-button:hover {
-    transform: scale(1.1);
-    background: rgba(0,123,255,1);
+    transform: scale(1.08);
 }
 
-/* ===============================
-   CHAT WINDOW — GLASS UI
-================================ */
+/* === CHAT WINDOW === */
 #chatbot-window {
     position: fixed;
-    bottom: 100px;
-    right: 25px;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
     width: 380px;
-    height: 520px;
-
-    background: rgba(255,255,255,0.20);
-    border-radius: 16px;
-    backdrop-filter: blur(25px);
-
-    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-    overflow: hidden;
+    height: 600px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 18px;
+    box-shadow: 0px 10px 40px rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
     display: none;
-
-    animation: fadeIn 0.25s ease-out;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 999;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ===============================
-   HEADER — TRANSPARENT
-================================ */
+/* === DRAGGABLE HEADER === */
 #chatbot-header {
-    background: rgba(30,120,255,0.85);
+    width: 100%;
+    height: 70px;
+    background: #007bff;
     color: white;
-    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    padding: 12px 16px;
 }
 
 #chatbot-header img {
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
-/* Suggestions row */
-.suggestions-row {
-    padding: 8px;
+.title-block .title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 11px;
+    opacity: 0.85;
+}
+
+#chatbot-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* === SUGGESTIONS === */
+#suggestions {
+    padding: 8px 12px;
     display: flex;
     gap: 8px;
-    overflow-x: auto;
-    background: rgba(255,255,255,0.10);
-    backdrop-filter: blur(10px);
+    background: transparent;
 }
 
-/* ===============================
-   MESSAGES — GLASS BUBBLES
-================================ */
+.suggestion-btn {
+    background: white;
+    border-radius: 20px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.2s;
+}
+
+.suggestion-btn:hover {
+    background: #e9e9e9;
+}
+
+/* === MESSAGES === */
 #chatbot-messages {
     flex: 1;
+    padding: 10px 15px;
     overflow-y: auto;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
 }
 
-/* User bubble */
+.message {
+    margin: 8px 0;
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
 .message.user {
-    align-self: flex-end;
-    background: rgba(0,123,255,0.9);
+    margin-left: auto;
+    background: #007bff;
     color: white;
-    padding: 10px 14px;
-    border-radius: 15px;
-    max-width: 80%;
 }
 
-/* Bot bubble */
 .message.bot {
-    background: rgba(255,255,255,0.35);
-    color: black;
-    padding: 10px 14px;
-    border-radius: 15px;
-    max-width: 80%;
-    backdrop-filter: blur(10px);
+    background: #f5f5f5;
+    color: #333;
 }
 
-/* Typing animation */
-.typing {
-    width: 40px;
-    height: 18px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(6px);
-    position: relative;
-    animation: pulse 1.2s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0% { opacity: .3; }
-    50% { opacity: 1; }
-    100% { opacity: .3; }
-}
-
-/* ===============================
-   INPUT — TRANSPARENT
-================================ */
+/* === INPUT BAR === */
 #chatbot-input-area {
     display: flex;
     padding: 10px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.6);
+    border-top: 1px solid #ddd;
 }
 
 #chatbot-input {
     flex: 1;
     padding: 10px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    border: 1px solid #ccc;
 }
 
 #chatbot-send {
     margin-left: 10px;
-    background: #007BFF;
-    color: white;
+    background: #007bff;
     border: none;
-    padding: 0 14px;
-    border-radius: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-/* ===============================
-   FOOTER
-================================ */
-#chatbot-footer {
-    text-align: center;
-    padding: 6px;
-    font-size: 11px;
+    padding: 0 20px;
+    border-radius: 12px;
     color: white;
-    opacity: 0.7;
-    background: rgba(0,0,0,0.3);
-    backdrop-filter: blur(6px);
+    cursor: pointer;
 }
