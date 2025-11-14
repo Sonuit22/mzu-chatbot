@@ -1,0 +1,159 @@
+/* ------ BODY ------ */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* ------ FLOATING BUTTON ------ */
+#chatbot-button {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #0059ff;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* ------ CHAT WINDOW (Glass UI) ------ */
+#chatbot-window {
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    width: 350px;
+    height: 480px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    cursor: grab;
+}
+
+/* Header */
+#chatbot-header {
+    background: rgba(0, 89, 255, 0.7);
+    padding: 12px;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Chatbot Avatar */
+#chatbot-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+/* Messages */
+#chatbot-messages {
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+/* Message bubbles */
+.message {
+    padding: 10px 14px;
+    margin: 6px 0;
+    border-radius: 10px;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.4;
+    animation: fadeIn 0.2s linear;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.user {
+    background: #0059ff;
+    color: white;
+    margin-left: auto;
+}
+
+.bot {
+    background: rgba(255, 255, 255, 0.7);
+    color: black;
+    margin-right: auto;
+}
+
+/* Typing animation dots */
+.typing {
+    width: 28px;
+    height: 10px;
+    background: #eaeaea;
+    border-radius: 20px;
+    position: relative;
+}
+
+.typing::after {
+    content: "...";
+    position: absolute;
+    top: -2px;
+    left: 5px;
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {opacity: 0.2;}
+    50% {opacity: 1;}
+    100% {opacity: 0.2;}
+}
+
+/* Input area */
+#chatbot-input-area {
+    display: flex;
+    padding: 10px;
+    gap: 5px;
+}
+
+#chatbot-input {
+    flex: 1;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    padding: 8px;
+}
+
+#chatbot-send {
+    background: #0059ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* Suggested Questions */
+#suggestions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 8px;
+}
+
+.suggestion-btn {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.suggestion-btn:hover {
+    background: #0059ff;
+    color: white;
+}

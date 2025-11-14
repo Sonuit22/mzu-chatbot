@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MZU Chatbot</title>
+<link rel="stylesheet" href="chat.css">
+</head>
+<body>
+
+<!-- Floating Chat Button -->
+<div id="chatbot-button">💬</div>
+
+<!-- Chat Window -->
+<div id="chatbot-window">
+
+    <!-- Header -->
+    <div id="chatbot-header">
+        <img id="chatbot-avatar" src="https://i.ibb.co/2FqbsZN/chatbot.png" alt="Bot">
+        <span>MZU Assistant</span>
+        <button id="chatbot-close">✖</button>
+    </div>
+
+    <!-- Suggested Questions -->
+    <div id="suggestions">
+        <button class="suggestion-btn">What is Mizoram University?</button>
+        <button class="suggestion-btn">Departments in MZU</button>
+        <button class="suggestion-btn">NIRF ranking of MZU</button>
+        <button class="suggestion-btn">Hostel facilities</button>
+    </div>
+
+    <!-- Chat Messages -->
+    <div id="chatbot-messages"></div>
+
+    <!-- Input Section -->
+    <div id="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Ask anything about MZU...">
+        <button id="chatbot-send">➤</button>
+    </div>
+</div>
+
+<script src="chat.js"></script>
+</body>
+</html>
