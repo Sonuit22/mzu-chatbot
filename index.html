@@ -1,43 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MZU Chatbot</title>
-<link rel="stylesheet" href="chat.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MZU Chatbot</title>
+  <link rel="stylesheet" href="chat.css">
 </head>
 <body>
 
-<!-- Floating Chat Button -->
-<div id="chatbot-button">💬</div>
+  <!-- Background video (optional) -->
+  <div id="bg-wrap">
+    <video id="bg-video" autoplay muted loop playsinline>
+      <source src="assets/bg.mp4" type="video/mp4">
+      <!-- If user doesn't provide video, a fallback background color will appear -->
+    </video>
+    <div id="bg-overlay"></div>
+  </div>
 
-<!-- Chat Window -->
-<div id="chatbot-window">
+  <!-- Top left: MZU logo (clickable) -->
+  <a id="mzu-brand" href="https://mzu.ac.in" target="_blank" rel="noopener">
+    <img src="assets/mzu-logo.png" alt="MZU" id="mzu-logo">
+  </a>
 
-    <!-- Header -->
-    <div id="chatbot-header">
-        <img id="chatbot-avatar" src="https://i.ibb.co/2FqbsZN/chatbot.png" alt="Bot">
-        <span>MZU Assistant</span>
-        <button id="chatbot-close">✖</button>
+  <!-- Floating chat bubble button (option C) -->
+  <button id="chatbot-button" aria-label="Open chat">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+      <path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
+    </svg>
+  </button>
+
+  <!-- Chat window -->
+  <div id="chatbot-window" role="dialog" aria-label="MZU Assistant" aria-hidden="true">
+    <div id="chatbot-header" class="draggable-handle">
+      <div class="header-left">
+        <img id="chatbot-avatar" src="assets/bot-icon.png" alt="Bot">
+        <div class="title-block">
+          <div class="title">MZU Assistant</div>
+          <div class="subtitle">Ask anything about Mizoram University</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <a id="github-link" href="https://github.com/Sonuit22/mzu-chatbot" target="_blank" rel="noopener" title="GitHub repo">GitHub</a>
+        <button id="chatbot-close" aria-label="Close">✕</button>
+      </div>
     </div>
 
-    <!-- Suggested Questions -->
-    <div id="suggestions">
-        <button class="suggestion-btn">What is Mizoram University?</button>
-        <button class="suggestion-btn">Departments in MZU</button>
-        <button class="suggestion-btn">NIRF ranking of MZU</button>
-        <button class="suggestion-btn">Hostel facilities</button>
+    <!-- Suggested quick questions -->
+    <div id="suggestions" class="suggestions-row" aria-hidden="false">
+      <button class="suggestion-btn">What is MZU?</button>
+      <button class="suggestion-btn">Departments</button>
+      <button class="suggestion-btn">NIRF ranking</button>
     </div>
 
-    <!-- Chat Messages -->
-    <div id="chatbot-messages"></div>
+    <!-- Messages -->
+    <div id="chatbot-messages" role="log" aria-live="polite"></div>
 
-    <!-- Input Section -->
+    <!-- Input -->
     <div id="chatbot-input-area">
-        <input type="text" id="chatbot-input" placeholder="Ask anything about MZU...">
-        <button id="chatbot-send">➤</button>
+      <input id="chatbot-input" type="text" placeholder="Ask anything about MZU..." autocomplete="off" />
+      <button id="chatbot-send" aria-label="Send">➤</button>
     </div>
-</div>
+
+    <!-- Footer small -->
+    <div id="chatbot-footer">
+      <small>Powered by MZU RAG • Backend on Render</small>
+    </div>
+  </div>
 
 <script src="chat.js"></script>
 </body>

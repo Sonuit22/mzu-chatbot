@@ -1,159 +1,116 @@
-/* ------ BODY ------ */
-body {
-    font-family: Arial, sans-serif;
-}
+/* chat.css - modern glass UI, draggable, typing animation */
 
-/* ------ FLOATING BUTTON ------ */
+/* Reset & base */
+* { box-sizing: border-box; }
+body, html { margin: 0; height: 100%; font-family: Inter, Arial, sans-serif; background: #f3f6fb; }
+
+/* Background video container */
+#bg-wrap { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
+#bg-video { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); min-width: 100%; min-height: 100%; object-fit: cover; opacity: 0.45; filter: saturate(0.9) contrast(0.95); }
+#bg-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.25)); }
+
+/* MZU brand top-left */
+#mzu-brand { position: fixed; left: 18px; top: 18px; z-index: 999; text-decoration: none; display:flex; align-items:center; gap:8px; }
+#mzu-logo { height:40px; width:auto; border-radius:6px; box-shadow: 0 3px 14px rgba(0,0,0,0.25); }
+
+/* Floating chat button (chat bubble) */
 #chatbot-button {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background: #0059ff;
-    color: white;
-    padding: 15px;
-    border-radius: 50%;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1001;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(180deg,#0066ff,#0047d1);
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  display:flex; align-items:center; justify-content:center;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s;
 }
+#chatbot-button:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(0,0,0,0.32); }
+#chatbot-button svg { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); }
 
-/* ------ CHAT WINDOW (Glass UI) ------ */
+/* Chat window */
 #chatbot-window {
-    position: fixed;
-    bottom: 90px;
-    right: 25px;
-    width: 350px;
-    height: 480px;
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,0.4);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    display: none;
-    flex-direction: column;
-    z-index: 1000;
-    overflow: hidden;
-    cursor: grab;
+  position: fixed;
+  right: 86px;
+  bottom: 22px;
+  z-index: 1002;
+  width: 360px;
+  max-width: calc(100% - 48px);
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.68));
+  backdrop-filter: blur(8px) saturate(120%);
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(2,6,23,0.35);
+  overflow: hidden;
+  transform-origin: bottom right;
+  border: 1px solid rgba(255,255,255,0.5);
+  user-select: none;
+  display: none; /* hidden by default */
 }
 
 /* Header */
 #chatbot-header {
-    background: rgba(0, 89, 255, 0.7);
-    padding: 12px;
-    color: white;
-    font-weight: bold;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 14px;
+  gap:10px;
+  cursor: grab;
+  background: linear-gradient(90deg, rgba(0,86,255,0.95), rgba(0,120,255,0.95));
+  color: #fff;
 }
+.header-left { display:flex; gap:10px; align-items:center; }
+#chatbot-avatar { width:36px; height:36px; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2); }
+.title { font-weight:600; font-size:15px; line-height:1; }
+.subtitle { font-size:11px; opacity:0.9; margin-top:2px; }
 
-/* Chatbot Avatar */
-#chatbot-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-}
+/* header right */
+.header-right { display:flex; gap:8px; align-items:center; }
+#github-link { color: rgba(255,255,255,0.95); font-size:13px; text-decoration:none; border:1px solid rgba(255,255,255,0.08); padding:6px 8px; border-radius:6px; background: rgba(255,255,255,0.04); }
+#chatbot-close { background: transparent; border: none; color: #fff; font-size:16px; cursor:pointer; }
 
-/* Messages */
-#chatbot-messages {
-    padding: 10px;
-    height: 300px;
-    overflow-y: auto;
-}
+/* Suggestions */
+.suggestions-row { display:flex; gap:8px; padding:10px; flex-wrap:wrap; background: transparent; }
+.suggestion-btn { background: rgba(255,255,255,0.85); border-radius:8px; padding:6px 10px; border:none; font-size:13px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
+.suggestion-btn:hover { background:#0066ff; color:#fff; transform: translateY(-2px); }
+
+/* Messages area */
+#chatbot-messages { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:8px; }
 
 /* Message bubbles */
-.message {
-    padding: 10px 14px;
-    margin: 6px 0;
-    border-radius: 10px;
-    max-width: 85%;
-    font-size: 14px;
-    line-height: 1.4;
-    animation: fadeIn 0.2s linear;
-}
+.message { max-width: 80%; padding:10px 12px; border-radius:12px; font-size:14px; line-height:1.4; box-shadow: 0 6px 18px rgba(9,30,66,0.05); animation: fadeIn .12s ease; }
+@keyframes fadeIn { from {opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
+.message.user { margin-left: auto; background: linear-gradient(180deg,#0066ff,#0047d1); color: #fff; border-bottom-right-radius:4px; }
+.message.bot { margin-right: auto; background: rgba(255,255,255,0.9); color: #0b1320; border-bottom-left-radius:4px; }
 
-.user {
-    background: #0059ff;
-    color: white;
-    margin-left: auto;
-}
-
-.bot {
-    background: rgba(255, 255, 255, 0.7);
-    color: black;
-    margin-right: auto;
-}
-
-/* Typing animation dots */
-.typing {
-    width: 28px;
-    height: 10px;
-    background: #eaeaea;
-    border-radius: 20px;
-    position: relative;
-}
-
-.typing::after {
-    content: "...";
-    position: absolute;
-    top: -2px;
-    left: 5px;
-    font-weight: bold;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0% {opacity: 0.2;}
-    50% {opacity: 1;}
-    100% {opacity: 0.2;}
-}
+/* Typing bubble (three dots) */
+.typing { display:inline-block; background:transparent; padding:6px 10px; }
+.typing .dot { width:6px; height:6px; margin:0 3px; border-radius:50%; display:inline-block; background:#9aa8bd; opacity:0.85; animation: bounce 1s infinite; }
+.typing .dot:nth-child(2) { animation-delay: .15s; }
+.typing .dot:nth-child(3) { animation-delay: .30s; }
+@keyframes bounce { 0%{ transform: translateY(0); }50%{ transform: translateY(-6px); }100%{ transform: translateY(0); } }
 
 /* Input area */
-#chatbot-input-area {
-    display: flex;
-    padding: 10px;
-    gap: 5px;
+#chatbot-input-area { display:flex; gap:8px; padding:12px; border-top:1px solid rgba(0,0,0,0.06); background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.54)); }
+#chatbot-input { flex:1; padding:10px 12px; border-radius:10px; border:1px solid rgba(12,24,48,0.08); outline:none; font-size:14px; }
+#chatbot-send { background:#0066ff; color:#fff; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; }
+
+/* Footer */
+#chatbot-footer { padding:8px 12px; text-align:center; font-size:11px; color: #243244; opacity:0.85; }
+
+/* Small screens adjustments */
+@media (max-width:480px) {
+  #chatbot-window { width: 92%; height: 66vh; right: 4%; bottom: 18px; }
+  #mzu-logo { height:36px; }
 }
 
-#chatbot-input {
-    flex: 1;
-    border-radius: 6px;
-    border: 1px solid #aaa;
-    padding: 8px;
-}
-
-#chatbot-send {
-    background: #0059ff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    cursor: pointer;
-}
-
-/* Suggested Questions */
-#suggestions {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin: 8px;
-}
-
-.suggestion-btn {
-    background: white;
-    border: 1px solid #ccc;
-    padding: 6px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.suggestion-btn:hover {
-    background: #0059ff;
-    color: white;
-}
+/* hidden helper */
+.hidden { display:none !important; }
