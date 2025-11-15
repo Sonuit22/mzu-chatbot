@@ -6,7 +6,7 @@
   <title>MZU Chatbot</title>
 
   <!-- FORCE CSS UPDATE -->
-  <link rel="stylesheet" href="chat.css?v=3">
+  <link rel="stylesheet" href="chat.css?v=4">
 </head>
 <body>
 
@@ -19,15 +19,24 @@
   </div>
 
   <!-- MZU logo -->
+   <div id="mzu-info">
+    <h2>Mizoram University</h2>
+    <p>
+        Established in 2001, Mizoram University is a Central University 
+        committed to excellence in teaching, innovation, and research.  
+        It offers undergraduate, postgraduate, and doctoral programs 
+        across diverse disciplines.
+    </p>
+    <a href="https://mzu.edu.in" target="_blank">Visit Official Website →</a>
+</div>
+
   <a id="mzu-brand" href="https://mzu.edu.in" target="_blank" rel="noopener">
     <img src="assets/mzu-logo.png" alt="MZU" id="mzu-logo">
   </a>
 
-  <!-- Floating button -->
+  <!-- Floating Chatbot Button (BOT ICON image instead of blue bubble) -->
   <button id="chatbot-button" aria-label="Open chat">
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-      <path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v14l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/>
-    </svg>
+    <img src="assets/bot-icon.png" id="chatbot-floating-icon" alt="Chatbot">
   </button>
 
   <!-- Chat window -->
@@ -61,13 +70,13 @@
     </div>
 
     <div id="chatbot-footer">
-      <small>Powered by Department of Information Technology</small>
+      <small>Powered by Department of IT</small>
     </div>
 
   </div>
 
   <!-- FORCE JS UPDATE -->
-  <script src="chat.js?v=3"></script>
+  <script src="chat.js?v=4"></script>
 
 </body>
 </html>
