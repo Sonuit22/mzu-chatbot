@@ -1,9 +1,13 @@
-/* chat.js - connect UI to Render backend, typing animation, draggable, suggested questions */
+/* chat.js - MZU AI Assistant (Smart UI, Suggestions, Timeout-safe for Render) */
 
-/* ========== CONFIG ========== */
+/* ============================================================
+   CONFIG
+============================================================ */
 const API_URL = "https://mzu-rag-api-bmm8.onrender.com/chat";
 
-/* ========== ELEMENTS ========== */
+/* ============================================================
+   ELEMENTS
+============================================================ */
 const openBtn = document.getElementById("chatbot-button");
 const chatWindow = document.getElementById("chatbot-window");
 const closeBtn = document.getElementById("chatbot-close");
@@ -12,7 +16,28 @@ const inputEl = document.getElementById("chatbot-input");
 const messagesEl = document.getElementById("chatbot-messages");
 const suggestionBox = document.getElementById("suggestions");
 
-/* ========== RESET POSITION ON OPEN ========== */
+/* ============================================================
+   FETCH WITH TIMEOUT (Render Free Plan Friendly)
+============================================================ */
+async function fetchWithTimeout(resource, options = {}) {
+  const { timeout = 70000 } = options; // 70 seconds for cold-start
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(resource, {
+      ...options,
+      signal: controller.signal,
+    });
+    return response;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
+/* ============================================================
+   POSITION RESET ON OPEN
+============================================================ */
 function resetChatPosition() {
   chatWindow.style.left = "";
   chatWindow.style.top = "";
@@ -20,7 +45,9 @@ function resetChatPosition() {
   chatWindow.style.bottom = "110px";
 }
 
-/* ========== OPEN/CLOSE ========== */
+/* ============================================================
+   OPEN / CLOSE CHAT
+============================================================ */
 openBtn.addEventListener("click", () => {
   resetChatPosition();
   chatWindow.style.display = "flex";
@@ -33,7 +60,9 @@ closeBtn.addEventListener("click", () => {
   openBtn.style.display = "flex";
 });
 
-/* ========== UTIL: ADD MESSAGE ========== */
+/* ============================================================
+   ADD MESSAGE
+============================================================ */
 function addMessage(text, who = "bot") {
   const el = document.createElement("div");
 
@@ -48,7 +77,9 @@ function addMessage(text, who = "bot") {
   return el;
 }
 
-/* ========== TYPING BUBBLE ========== */
+/* ============================================================
+   TYPING INDICATOR
+============================================================ */
 function addTyping() {
   const wrapper = document.createElement("div");
   wrapper.className = "bot-msg typing";
@@ -66,7 +97,9 @@ function removeTyping() {
   document.querySelectorAll(".typing").forEach(n => n.remove());
 }
 
-/* ========== SEND LOGIC ========== */
+/* ============================================================
+   SEND QUERY TO BACKEND
+============================================================ */
 async function sendQuery(text) {
   addMessage(text, "user");
   inputEl.value = "";
@@ -75,10 +108,11 @@ async function sendQuery(text) {
   const typingBubble = addTyping();
 
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetchWithTimeout(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: text })
+      body: JSON.stringify({ query: text }),
+      timeout: 70000
     });
 
     if (!res.ok) {
@@ -93,7 +127,7 @@ async function sendQuery(text) {
 
   } catch (e) {
     removeTyping();
-    addMessage("⚠ Error connecting to server.", "error");
+    addMessage("⚠ Server is waking up... please try again in a few seconds.", "error");
   }
 }
 
@@ -111,10 +145,9 @@ inputEl.addEventListener("keypress", (e) => {
   }
 });
 
-/* ===========================================================
-   SMART AUTO-SUGGESTIONS (NEW + IMPROVED)
-=========================================================== */
-
+/* ============================================================
+   SMART AUTO-SUGGESTIONS
+============================================================ */
 const smartSuggestions = [
   "What is the NIRF ranking of Mizoram University?",
   "Latest notifications",
@@ -135,12 +168,9 @@ const smartSuggestions = [
 inputEl.addEventListener("input", () => {
   const query = inputEl.value.trim().toLowerCase();
 
-  // Clear box
   suggestionBox.innerHTML = "";
-
   if (!query) return;
 
-  // Filter suggestions
   const filtered = smartSuggestions
     .filter(s => s.toLowerCase().includes(query))
     .slice(0, 5);
@@ -154,9 +184,9 @@ inputEl.addEventListener("input", () => {
   });
 });
 
-/* =========================================================== */
-
-/* ========== DRAGGABLE WINDOW ========== */
+/* ============================================================
+   DRAGGABLE CHAT WINDOW
+============================================================ */
 (function makeDraggable() {
   const handle = document.querySelector(".draggable-handle");
   let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
@@ -185,7 +215,9 @@ inputEl.addEventListener("input", () => {
   });
 })();
 
-/* ========== GREETING ONCE ========== */
+/* ============================================================
+   GREETING ONCE
+============================================================ */
 (function greetOnce() {
   if (!sessionStorage.getItem("mzu_greeted")) {
     setTimeout(() => {
