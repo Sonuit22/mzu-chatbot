@@ -1,7 +1,6 @@
 /* chat.js - connect UI to Render backend, typing animation, draggable, suggested questions */
 
 /* ========== CONFIG ========== */
-/* ========== CONFIG ========== */
 const API_URL = "https://mzu-rag-api-bmm8.onrender.com/chat";
 
 /* ========== ELEMENTS ========== */
@@ -13,7 +12,7 @@ const inputEl = document.getElementById("chatbot-input");
 const messagesEl = document.getElementById("chatbot-messages");
 const suggestionBtns = document.querySelectorAll(".suggestion-btn");
 
-/* ========== RESET POSITION ON OPEN (Fix alignment after dragging) ========== */
+/* ========== RESET POSITION ON OPEN ========== */
 function resetChatPosition() {
   chatWindow.style.left = "";
   chatWindow.style.top = "";
@@ -34,7 +33,7 @@ closeBtn.addEventListener("click", () => {
   openBtn.style.display = "flex";
 });
 
-/* ========== UTIL: add message ========== */
+/* ========== UTIL: ADD MESSAGE ========== */
 function addMessage(text, who = "bot") {
   const el = document.createElement("div");
 
@@ -43,14 +42,13 @@ function addMessage(text, who = "bot") {
   else el.className = "error-msg";
 
   el.textContent = text;
-
   messagesEl.appendChild(el);
   messagesEl.scrollTop = messagesEl.scrollHeight;
 
   return el;
 }
 
-/* ========== Typing bubble ========== */
+/* ========== TYPING BUBBLE ========== */
 function addTyping() {
   const wrapper = document.createElement("div");
   wrapper.className = "bot-msg typing";
@@ -114,13 +112,13 @@ inputEl.addEventListener("keypress", (e) => {
   }
 });
 
-/* ========== SAFE CLICK (Double-click prevention) ========== */
+/* ========== SAFE CLICK (DOUBLE-CLICK PREVENTION) ========== */
 let lastClickTime = 0;
 
 suggestionBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     const now = Date.now();
-    if (now - lastClickTime < 300) return; // prevent double trigger
+    if (now - lastClickTime < 300) return;
     lastClickTime = now;
     sendQuery(btn.innerText);
   });
@@ -133,7 +131,7 @@ suggestionBtns.forEach((btn) => {
 
   handle.addEventListener("mousedown", (e) => {
     dragging = true;
-    startX = e.clientX; 
+    startX = e.clientX;
     startY = e.clientY;
     const rect = chatWindow.getBoundingClientRect();
     startLeft = rect.left;
@@ -153,9 +151,8 @@ suggestionBtns.forEach((btn) => {
     dragging = false;
     document.body.style.userSelect = "";
   });
-
 })();
-    
+
 /* ========== GREETING ONCE ========== */
 (function greetOnce() {
   if (!sessionStorage.getItem("mzu_greeted")) {
