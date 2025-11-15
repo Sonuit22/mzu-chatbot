@@ -10,7 +10,7 @@ const closeBtn = document.getElementById("chatbot-close");
 const sendBtn = document.getElementById("chatbot-send");
 const inputEl = document.getElementById("chatbot-input");
 const messagesEl = document.getElementById("chatbot-messages");
-const suggestionBtns = document.querySelectorAll(".suggestion-btn");
+const suggestionBox = document.getElementById("suggestions");
 
 /* ========== RESET POSITION ON OPEN ========== */
 function resetChatPosition() {
@@ -63,14 +63,14 @@ function addTyping() {
 }
 
 function removeTyping() {
-  const last = messagesEl.lastElementChild;
-  if (last && last.classList.contains("typing")) last.remove();
+  document.querySelectorAll(".typing").forEach(n => n.remove());
 }
 
 /* ========== SEND LOGIC ========== */
 async function sendQuery(text) {
   addMessage(text, "user");
   inputEl.value = "";
+  suggestionBox.innerHTML = ""; // hide suggestions
 
   const typingBubble = addTyping();
 
@@ -94,7 +94,6 @@ async function sendQuery(text) {
   } catch (e) {
     removeTyping();
     addMessage("⚠ Error connecting to server.", "error");
-    console.error("Fetch error:", e);
   }
 }
 
@@ -112,17 +111,50 @@ inputEl.addEventListener("keypress", (e) => {
   }
 });
 
-/* ========== SAFE CLICK (DOUBLE-CLICK PREVENTION) ========== */
-let lastClickTime = 0;
+/* ===========================================================
+   SMART AUTO-SUGGESTIONS (NEW + IMPROVED)
+=========================================================== */
 
-suggestionBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const now = Date.now();
-    if (now - lastClickTime < 300) return;
-    lastClickTime = now;
-    sendQuery(btn.innerText);
+const smartSuggestions = [
+  "What is the NIRF ranking of Mizoram University?",
+  "Latest notifications",
+  "Latest recruitments",
+  "Departments in MZU",
+  "Courses offered at MZU",
+  "Library information",
+  "Hostel details",
+  "Placement cell details",
+  "MZU contact information",
+  "Vice-Chancellor of Mizoram University",
+  "Academic calendar",
+  "Admission process",
+  "Scholarships offered",
+  "MZU location"
+];
+
+inputEl.addEventListener("input", () => {
+  const query = inputEl.value.trim().toLowerCase();
+
+  // Clear box
+  suggestionBox.innerHTML = "";
+
+  if (!query) return;
+
+  // Filter suggestions
+  const filtered = smartSuggestions
+    .filter(s => s.toLowerCase().includes(query))
+    .slice(0, 5);
+
+  filtered.forEach(text => {
+    const b = document.createElement("button");
+    b.className = "suggestion-btn";
+    b.textContent = text;
+    b.onclick = () => sendQuery(text);
+    suggestionBox.appendChild(b);
   });
 });
+
+/* =========================================================== */
 
 /* ========== DRAGGABLE WINDOW ========== */
 (function makeDraggable() {
