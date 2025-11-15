@@ -1,7 +1,8 @@
 /* chat.js - connect UI to Render backend, typing animation, draggable, suggested questions */
 
 /* ========== CONFIG ========== */
-const API_URL = "const API_URL = "https://mzu-rag-api-bmm8.onrender.com/chat";
+/* ========== CONFIG ========== */
+const API_URL = "https://mzu-rag-api-bmm8.onrender.com/chat";
 
 /* ========== ELEMENTS ========== */
 const openBtn = document.getElementById("chatbot-button");
