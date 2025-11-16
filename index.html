@@ -18,8 +18,7 @@
     <div id="bg-overlay"></div>
   </div>
 
-  <!-- MZU logo -->
-   <div id="mzu-info">
+  <div id="mzu-info">
     <h2>Mizoram University</h2>
     <p>
         Established in 2001, Mizoram University is a Central University 
@@ -28,18 +27,16 @@
         across diverse disciplines.
     </p>
     <a href="https://mzu.edu.in" target="_blank">Visit Official Website →</a>
-</div>
+  </div>
 
   <a id="mzu-brand" href="https://mzu.edu.in" target="_blank" rel="noopener">
     <img src="assets/mzu-logo.png" alt="MZU" id="mzu-logo">
   </a>
 
-  <!-- Floating Chatbot Button (BOT ICON image instead of blue bubble) -->
   <button id="chatbot-button" aria-label="Open chat">
     <img src="assets/bot-icon.png" id="chatbot-floating-icon" alt="Chatbot">
   </button>
 
-  <!-- Chat window -->
   <div id="chatbot-window" role="dialog" aria-label="MZU Assistant" aria-hidden="true">
     
     <div id="chatbot-header" class="draggable-handle">
@@ -57,6 +54,9 @@
     </div>
 
     <div id="chatbot-messages" role="log" aria-live="polite"></div>
+
+    <!-- 🔥 FIXED: required for smart suggestions -->
+    <div id="suggestions"></div>
 
     <div id="chatbot-input-area">
       <input id="chatbot-input" type="text" placeholder="Ask anything about MZU..." autocomplete="off" />

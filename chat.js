@@ -224,7 +224,7 @@ inputEl.addEventListener("input", () => {
       resetChatPosition();
       chatWindow.style.display = "flex";
       openBtn.style.display = "none";
-      addMessage("Hi 👋 I'm the MZU Assistant. Ask me anything about Mizoram University.", "bot");
+      addMessage("Hi 👋 I'm the MZU Assistant.", "bot");
       sessionStorage.setItem("mzu_greeted", "1");
     }, 700);
   }
