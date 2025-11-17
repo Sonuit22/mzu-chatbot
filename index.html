@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MZU Chatbot</title>
 
-  <!-- FORCE CSS UPDATE -->
-  <link rel="stylesheet" href="chat.css?v=4">
+  <!-- CSS -->
+  <link rel="stylesheet" href="chat.css?v=5">
 </head>
 <body>
 
@@ -18,27 +18,32 @@
     <div id="bg-overlay"></div>
   </div>
 
+  <!-- MZU Info Panel -->
   <div id="mzu-info">
     <h2>Mizoram University</h2>
     <p>
-        Established in 2001, Mizoram University is a Central University 
-        committed to excellence in teaching, innovation, and research.  
-        It offers undergraduate, postgraduate, and doctoral programs 
-        across diverse disciplines.
+      Established in 2001, Mizoram University is a Central University 
+      committed to excellence in teaching, innovation, and research.
+      It offers undergraduate, postgraduate, and doctoral programs 
+      across diverse disciplines.
     </p>
     <a href="https://mzu.edu.in" target="_blank">Visit Official Website →</a>
   </div>
 
-  <a id="mzu-brand" href="https://mzu.edu.in" target="_blank" rel="noopener">
+  <!-- Floating MZU Logo -->
+  <a id="mzu-brand" href="https://mzu.edu.in" target="_blank">
     <img src="assets/mzu-logo.png" alt="MZU" id="mzu-logo">
   </a>
 
+  <!-- Floating Chat Button -->
   <button id="chatbot-button" aria-label="Open chat">
     <img src="assets/bot-icon.png" id="chatbot-floating-icon" alt="Chatbot">
   </button>
 
+  <!-- Chat Window -->
   <div id="chatbot-window" role="dialog" aria-label="MZU Assistant" aria-hidden="true">
-    
+
+    <!-- HEADER -->
     <div id="chatbot-header" class="draggable-handle">
       <div class="header-left">
         <img id="chatbot-avatar" src="assets/mzu-logo.png" alt="Bot">
@@ -47,27 +52,34 @@
           <div class="subtitle">Ask anything about Mizoram University</div>
         </div>
       </div>
-    
+
+      <!-- Right side (close button only) -->
+      <div class="header-right">
+        <button id="chatbot-close" aria-label="Close">✕</button>
+      </div>
     </div>
 
+    <!-- Messages -->
     <div id="chatbot-messages" role="log" aria-live="polite"></div>
 
-    <!-- 🔥 FIXED: required for smart suggestions -->
+    <!-- Smart Suggestions (Auto Search Bar) -->
     <div id="suggestions"></div>
 
+    <!-- Input Area -->
     <div id="chatbot-input-area">
       <input id="chatbot-input" type="text" placeholder="Ask anything about MZU..." autocomplete="off" />
       <button id="chatbot-send" aria-label="Send">➤</button>
     </div>
 
+    <!-- Footer -->
     <div id="chatbot-footer">
       <small>Powered by Department of IT</small>
     </div>
 
   </div>
 
-  <!-- FORCE JS UPDATE -->
-  <script src="chat.js?v=4"></script>
+  <!-- JS -->
+  <script src="chat.js?v=5"></script>
 
 </body>
 </html>
