@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MZU Chatbot</title>
+  <title>Mizoram University Intelligent Campus Assistant</title>
 
   <!-- FORCE CSS UPDATE -->
   <link rel="stylesheet" href="chat.css?v=4">
 </head>
 <body>
 
-  <!-- 🔥 MAIN TITLES ADDED HERE -->
+  <!-- MAIN TITLES -->
   <div id="main-title">Mizoram University Intelligent Campus Assistant</div>
   <div id="sub-title">Powered by Department of IT</div>
 
@@ -22,6 +22,7 @@
     <div id="bg-overlay"></div>
   </div>
 
+  <!-- ABOUT SECTION -->
   <div id="mzu-info">
     <h2>Mizoram University</h2>
     <p>
@@ -30,19 +31,31 @@
         It offers undergraduate, postgraduate, and doctoral programs 
         across diverse disciplines.
     </p>
+
     <a href="https://mzu.edu.in" target="_blank">Visit Official Website →</a>
+
+    <!-- Department of IT Link -->
+    <div id="it-link">
+      <a href="https://mzu.edu.in/department-of-information-technology/" target="_blank">
+        Visit Department of IT <span class="arrow">➜</span>
+      </a>
+    </div>
   </div>
 
-  <a id="mzu-brand" href="https://mzu.edu.in" target="_blank" rel="noopener">
+  <!-- FLOATING LOGO -->
+  <a id="mzu-brand" href="https://mzu.edu.in" target="_blank">
     <img src="assets/mzu-logo.png" alt="MZU" id="mzu-logo">
   </a>
 
+  <!-- FLOATING CHAT BUTTON -->
   <button id="chatbot-button" aria-label="Open chat">
     <img src="assets/bot-icon.png" id="chatbot-floating-icon" alt="Chatbot">
   </button>
 
+  <!-- CHAT WINDOW -->
   <div id="chatbot-window" role="dialog" aria-label="MZU Assistant" aria-hidden="true">
-    
+
+    <!-- HEADER -->
     <div id="chatbot-header" class="draggable-handle">
       <div class="header-left">
         <img id="chatbot-avatar" src="assets/mzu-logo.png" alt="Bot">
@@ -51,24 +64,26 @@
           <div class="subtitle">Ask anything about Mizoram University</div>
         </div>
       </div>
+
+      <!-- CLOSE BUTTON -->
       <div class="header-right">
-        <a id="github-link" href="https://github.com/Sonuit22/mzu-chatbot" target="_blank">GitHub</a>
         <button id="chatbot-close" aria-label="Close">✕</button>
       </div>
-    </div>
+    </div> <!-- ✅ Correct closing -->
 
+    <!-- MESSAGES -->
     <div id="chatbot-messages" role="log" aria-live="polite"></div>
 
-    <!-- 🔥 FIXED: required for smart suggestions -->
+    <!-- Suggestions -->
     <div id="suggestions"></div>
 
-    <!-- Input Area -->
+    <!-- INPUT AREA -->
     <div id="chatbot-input-area">
       <input id="chatbot-input" type="text" placeholder="Ask anything about MZU..." autocomplete="off" />
       <button id="chatbot-send">➤</button>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <div id="chatbot-footer">
       <small>Powered by Department of IT</small>
     </div>
