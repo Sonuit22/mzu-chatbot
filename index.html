@@ -7,14 +7,78 @@
 
   <!-- FORCE CSS UPDATE -->
   <link rel="stylesheet" href="chat.css?v=4">
+
+  <style>
+    /* ===================== MAIN TITLE CENTER & TYPING ===================== */
+
+    #main-title-container {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    #main-title {
+      font-size: 42px;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: 0 0 18px rgba(0,255,255,0.8);
+      border-right: 3px solid #fff; /* typing cursor */
+      padding-right: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      animation: blinkCursor 0.7s infinite;
+    }
+
+    @keyframes blinkCursor {
+      0% { border-color: #fff; }
+      50% { border-color: transparent; }
+      100% { border-color: #fff; }
+    }
+
+    #sub-title {
+      position: fixed;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: 500;
+      color: #d6faff;
+      opacity: 0;
+      animation: fadeInSubtitle 1.2s ease forwards;
+      animation-delay: 3.2s;
+    }
+
+    @keyframes fadeInSubtitle {
+      from { opacity: 0; transform: translate(-50%, -8px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    @media (max-width: 900px) {
+      #main-title { font-size: 32px; }
+      #sub-title { font-size: 18px; }
+    }
+
+    @media (max-width: 600px) {
+      #main-title { font-size: 26px; }
+      #sub-title { font-size: 16px; }
+    }
+  </style>
+
 </head>
 <body>
 
-  <!-- MAIN TITLES -->
-  <div id="main-title">Mizoram University Intelligent Campus Assistant</div>
+  <!-- ============================= MAIN TITLES ============================= -->
+  <div id="main-title-container">
+    <span id="main-title"></span>
+  </div>
+
   <div id="sub-title">Powered by Department of IT</div>
 
-  <!-- Background video -->
+  <!-- ============================= Background video ============================= -->
   <div id="bg-wrap">
     <video id="bg-video" autoplay muted loop playsinline>
       <source src="assets/bg.mp4" type="video/mp4">
@@ -22,7 +86,7 @@
     <div id="bg-overlay"></div>
   </div>
 
-  <!-- ABOUT SECTION -->
+  <!-- ============================= ABOUT SECTION ============================= -->
   <div id="mzu-info">
     <h2>Mizoram University</h2>
     <p>
@@ -52,7 +116,7 @@
     <img src="assets/bot-icon.png" id="chatbot-floating-icon" alt="Chatbot">
   </button>
 
-  <!-- CHAT WINDOW -->
+  <!-- ============================= CHAT WINDOW ============================= -->
   <div id="chatbot-window" role="dialog" aria-label="MZU Assistant" aria-hidden="true">
 
     <!-- HEADER -->
@@ -65,11 +129,10 @@
         </div>
       </div>
 
-      <!-- CLOSE BUTTON -->
       <div class="header-right">
         <button id="chatbot-close" aria-label="Close">✕</button>
       </div>
-    </div> <!-- ✅ Correct closing -->
+    </div>
 
     <!-- MESSAGES -->
     <div id="chatbot-messages" role="log" aria-live="polite"></div>
@@ -92,6 +155,25 @@
 
   <!-- FORCE JS UPDATE -->
   <script src="chat.js?v=4"></script>
+
+  <!-- ============================= TYPING SCRIPT ============================= -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const text = "Mizoram University Intelligent Campus Assistant";
+      const speed = 55; // speed per letter
+      let i = 0;
+
+      function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("main-title").textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
+      }
+
+      typeWriter();
+    });
+  </script>
 
 </body>
 </html>
