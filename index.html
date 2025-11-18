@@ -5,46 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MZU Chatbot</title>
 
-  <link rel="stylesheet" href="chat.css?v=6">
-
-  <!-- MAIN PAGE TITLES STYLE -->
-  <style>
-
-    #main-title {
-      position: fixed;
-      top: 40px;
-      width: 100%;
-      text-align: center;
-      font-size: 36px;
-      font-weight: 800;
-      color: white;
-      text-shadow: 0 0 15px rgba(0,0,0,0.6);
-      opacity: 0;
-      animation: fadeDown 2s ease-in-out forwards;
-      letter-spacing: 1px;
-      z-index: 20;
-    }
-
-    #sub-title {
-      position: fixed;
-      top: 90px;
-      width: 100%;
-      text-align: center;
-      font-size: 18px;
-      font-weight: 500;
-      color: #dff6ff;
-      opacity: 0;
-      animation: fadeDown 2.5s ease-in-out forwards;
-      text-shadow: 0 0 10px rgba(0,0,0,0.5);
-      z-index: 20;
-    }
-
-    @keyframes fadeDown {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-
+  <!-- FORCE CSS UPDATE -->
+  <link rel="stylesheet" href="chat.css?v=4">
 </head>
 <body>
 
@@ -60,44 +22,27 @@
     <div id="bg-overlay"></div>
   </div>
 
- <!-- MZU Info Panel -->
-<div id="mzu-info">
-
-  <h2>Mizoram University</h2>
-
-  <p>
-    Established in 2001, Mizoram University is a Central University
-    committed to excellence in teaching, innovation, and research.
-    It offers undergraduate, postgraduate, and doctoral programs
-    across diverse disciplines.
-  </p>
-
-  <a href="https://mzu.edu.in" target="_blank">Visit Official Website →</a>
-
-  <!-- NEW: Department of IT Link -->
-  <div id="it-link">
-    <a href="https://mzu.edu.in/department-of-information-technology/" target="_blank">
-      Visit Department of IT 
-      <span class="arrow">➜</span>
-    </a>
+  <div id="mzu-info">
+    <h2>Mizoram University</h2>
+    <p>
+        Established in 2001, Mizoram University is a Central University 
+        committed to excellence in teaching, innovation, and research.  
+        It offers undergraduate, postgraduate, and doctoral programs 
+        across diverse disciplines.
+    </p>
+    <a href="https://mzu.edu.in" target="_blank">Visit Official Website →</a>
   </div>
 
-</div>
-
-
-  <!-- Floating Logo -->
   <a id="mzu-brand" href="https://mzu.edu.in" target="_blank" rel="noopener">
     <img src="assets/mzu-logo.png" alt="MZU" id="mzu-logo">
   </a>
 
-  <!-- Floating Chat Button -->
-  <button id="chatbot-button">
+  <button id="chatbot-button" aria-label="Open chat">
     <img src="assets/bot-icon.png" id="chatbot-floating-icon" alt="Chatbot">
   </button>
 
-  <!-- Chat Window -->
-  <div id="chatbot-window">
-
+  <div id="chatbot-window" role="dialog" aria-label="MZU Assistant" aria-hidden="true">
+    
     <div id="chatbot-header" class="draggable-handle">
       <div class="header-left">
         <img id="chatbot-avatar" src="assets/mzu-logo.png" alt="Bot">
@@ -106,28 +51,32 @@
           <div class="subtitle">Ask anything about Mizoram University</div>
         </div>
       </div>
-
       <div class="header-right">
-        <button id="chatbot-close">✕</button>
+        <a id="github-link" href="https://github.com/Sonuit22/mzu-chatbot" target="_blank">GitHub</a>
+        <button id="chatbot-close" aria-label="Close">✕</button>
       </div>
     </div>
 
-    <div id="chatbot-messages"></div>
+    <div id="chatbot-messages" role="log" aria-live="polite"></div>
 
+    <!-- 🔥 FIXED: required for smart suggestions -->
     <div id="suggestions"></div>
 
+    <!-- Input Area -->
     <div id="chatbot-input-area">
       <input id="chatbot-input" type="text" placeholder="Ask anything about MZU..." autocomplete="off" />
       <button id="chatbot-send">➤</button>
     </div>
 
+    <!-- Footer -->
     <div id="chatbot-footer">
       <small>Powered by Department of IT</small>
     </div>
 
   </div>
 
-  <script src="chat.js?v=6"></script>
+  <!-- FORCE JS UPDATE -->
+  <script src="chat.js?v=4"></script>
 
 </body>
 </html>
