@@ -351,3 +351,39 @@ body {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* ========================================================= */
+/* MAIN PAGE TITLE + SUBTITLE (FIXED + ANIMATED) */
+/* ========================================================= */
+
+#main-title {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 34px;
+    font-weight: 800;
+    color: #ffffff;
+    text-shadow: 0 0 12px rgba(0,255,220,0.6);
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeDown 1.3s ease forwards;
+    z-index: 50;
+}
+
+#sub-title {
+    position: fixed;
+    top: 125px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: 500;
+    color: #e0e0e0;
+    opacity: 0;
+    animation: fadeDown 1.6s ease forwards;
+    z-index: 50;
+}
+
+@keyframes fadeDown {
+    0% { opacity: 0; transform: translate(-50%, -15px); }
+    100% { opacity: 1; transform: translate(-50%, 0px); }
+}
