@@ -351,82 +351,47 @@ body {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* ========================================================= */
-/* MAIN PAGE TITLE — One Line + Typing Animation */
-/* ========================================================= */
-
+/* === MAIN TITLE (CENTER OF SCREEN) === */
 #main-title {
     position: fixed;
-    top: 70px;
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 38px;
-    font-weight: 900;
+
+    font-size: 48px;
+    font-weight: 800;
     color: #ffffff;
-    white-space: nowrap;
-    letter-spacing: 1px;
-    text-shadow: 0 0 14px rgba(0,255,220,0.7);
-    z-index: 50;
-    overflow: hidden;
-    border-right: 3px solid #00ffee;
-    width: 0;
-    animation: typing 4s steps(40, end) forwards, blink 0.7s infinite;
+    text-align: center;
+
+    text-shadow: 0px 0px 18px rgba(0,255,255,0.7);
+    z-index: 9999;
+
+    opacity: 0;
+    animation: fadeInTitle 1.5s ease forwards;
 }
 
+/* SUBTITLE directly under the title */
 #sub-title {
     position: fixed;
-    top: 120px;
+    top: 110px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 20px;
-    font-weight: 600;
-    color: #e0ffff;
-    opacity: 0;
-    animation: fadeIn 3s ease forwards;
-    animation-delay: 3.5s; /* appears after title finishes */
-    z-index: 50;
-}
 
-/* TYPING ANIMATION */
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-/* Cursor Blinking */
-@keyframes blink {
-    0% { border-color: transparent; }
-    50% { border-color: #00ffee; }
-    100% { border-color: transparent; }
-}
-
-/* Subtitle fade-in */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translate(-50%, 10px); }
-    100% { opacity: 1; transform: translate(-50%, 0); }
-}
-
-/* ========================================================= */
-/* FOOTER — Bottom of Page */
-/* ========================================================= */
-
-#page-footer {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #cfcfcf;
-    font-size: 14px;
+    font-size: 22px;
     font-weight: 500;
-    opacity: 0.85;
-    z-index: 20;
-    text-shadow: 0 0 6px rgba(0,0,0,0.6);
+    color: #dffcff;
+    text-align: center;
+
+    opacity: 0;
+    animation: fadeInSubtitle 2s ease forwards;
 }
 
-#page-footer a {
-    color: #00faff;
-    text-decoration: none;
+@keyframes fadeInTitle {
+    from { opacity: 0; transform: translate(-50%, -10px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
 }
-#page-footer a:hover {
-    text-decoration: underline;
+
+@keyframes fadeInSubtitle {
+    from { opacity: 0; transform: translate(-50%, -8px); }
+    to   { opacity: 1; transform: translate(-50%, 0); }
 }
